@@ -1,8 +1,11 @@
 import dash
 from dash import html, dcc
+from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 from utils.rules_engine import apply_rules
 from components.layout import generate_layout
+from components.dr_layout import generate_dynamic_rules_layout
+from components.sc_layout import generate_scores_layout
 from utils.xlsxParser import load_groups_from_excel
 import pandas as pd
 
@@ -32,7 +35,69 @@ def groups_to_dataframe(groups):
 
 processed_df = groups_to_dataframe(group_objs)
 
-app.layout = generate_layout(processed_df)
+app.layout = html.Div([
+    dcc.Tabs(id='tabs', value='tab-1', children=[
+        dcc.Tab(label='Графики', value='tab-1'),
+        dcc.Tab(label='Динамические правила', value='tab-2'),
+        dcc.Tab(label='Баллы', value='tab-3')
+    ]),
+    html.Div(id='tabs-content',children=[
+        generate_layout(processed_df),
+        generate_dynamic_rules_layout(group_objs),
+        generate_scores_layout(group_objs)
+    ])
+])
+
+@app.callback(Output('graph_layout', 'style'),
+              Output('rules_layout', 'style'),
+              Output('scores_layout', 'style'),
+              Input('tabs', 'value'))
+def render_content(tab):
+    if tab == 'tab-1':
+        return ({'display': 'block'},{'display': 'none'},{'display': 'none'})
+    elif tab == 'tab-2':
+        return ({'display': 'none'},{'display': 'block'},{'display': 'none'})
+    elif tab == 'tab-3':
+        return ({'display': 'none'},{'display': 'none'},{'display': 'block'})
+
+@app.callback(
+    Output('output-container1', 'children'),
+    Input('names1', 'value'),
+    Input('proc1', 'value'),
+)
+def update_output1(names,proc):
+    return ruleOut(names,proc)
+
+@app.callback(
+    Output('output-container2', 'children'),
+    Input('names2', 'value'),
+    Input('proc2', 'value'),
+)
+def update_output2(names,proc):
+    return ruleOut(names,proc)
+
+@app.callback(
+    Output('output-container3', 'children'),
+    Input('names3', 'value'),
+    Input('proc3', 'value'),
+)
+def update_output3(names,proc):
+    return ruleOut(names,proc)
+    
+def ruleOut(names,proc):
+    prCurr=''
+    prPlan=''
+    prProc=''
+    for g in group_objs:
+        for m in g.members:
+            if m.name==names:
+                prPlan=str(m.plan)
+                prCurr=str(m.current)
+                prProc=str(m.proc*100)
+    if float(prProc)>=int(proc):
+        return 'Процент по продукту '+names+' >= заданного ('+prProc+')'
+    else:
+        return 'Процент по продукту '+names+' недостаточен ('+prProc+')'
 
 if __name__ == "__main__":
     # app.run_server(debug=True)

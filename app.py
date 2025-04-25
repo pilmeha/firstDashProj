@@ -14,6 +14,8 @@ server = app.server
 
 group_objs = load_groups_from_excel("data/xlsxParser.xlsx")
 
+crossRibates=[0,0,0]
+
 # Преобразуем в pandas DataFrame для визуализации
 def groups_to_dataframe(groups):
     rows = []
@@ -60,29 +62,38 @@ def render_content(tab):
 
 @app.callback(
     Output('output-container1', 'children'),
+    Output('crossRibate', 'children',allow_duplicate=True),
     Input('names1', 'value'),
     Input('proc1', 'value'),
+    Input('cros1', 'value'),
+    prevent_initial_call=True,
 )
-def update_output1(names,proc):
-    return ruleOut(names,proc)
+def update_output1(names,proc,cros):
+    return ruleOut(names,proc,cros,0)
 
 @app.callback(
     Output('output-container2', 'children'),
+    Output('crossRibate', 'children',allow_duplicate=True),
     Input('names2', 'value'),
     Input('proc2', 'value'),
+    Input('cros2', 'value'),
+    prevent_initial_call=True,
 )
-def update_output2(names,proc):
-    return ruleOut(names,proc)
+def update_output2(names,proc,cros):
+    return ruleOut(names,proc,cros,1)
 
 @app.callback(
     Output('output-container3', 'children'),
+    Output('crossRibate', 'children',allow_duplicate=True),
     Input('names3', 'value'),
     Input('proc3', 'value'),
+    Input('cros3', 'value'),
+    prevent_initial_call=True,
 )
-def update_output3(names,proc):
-    return ruleOut(names,proc)
+def update_output3(names,proc,cros):
+    return ruleOut(names,proc,cros,2)
     
-def ruleOut(names,proc):
+def ruleOut(names,proc,cros,i):
     prCurr=''
     prPlan=''
     prProc=''
@@ -93,9 +104,11 @@ def ruleOut(names,proc):
                 prCurr=str(m.current)
                 prProc=str(m.proc*100)
     if float(prProc)>=int(proc):
-        return 'Процент по продукту '+names+' >= заданного ('+prProc+')'
+        crossRibates[i]=float(cros)
+        return ('Процент по продукту '+names+' >= заданного ('+prProc+'), кросс-рибейт +'+cros+'%','Сумма кросс-рибейта: '+str(sum(crossRibates))+'%')
     else:
-        return 'Процент по продукту '+names+' недостаточен ('+prProc+')'
+        crossRibates[i]=0
+        return ('Процент по продукту '+names+' недостаточен ('+prProc+')','Сумма кросс-рибейта: '+str(sum(crossRibates))+'%')
 
 if __name__ == "__main__":
     # app.run_server(debug=True)

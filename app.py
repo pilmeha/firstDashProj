@@ -23,7 +23,9 @@ def groups_to_dataframe(groups):
                 "Факт": m.current,
                 "% выполнения": round(m.proc * 100, 1),
                 "Требуемый % выполнения": g.minProc,
-                "Требуемое кол-во выполненных": g.minMemb,
+                "Требуемое кол-во выполненных разделов": g.minMemb,
+                "% выполнения (общий)": g.calculateCurrProc(),
+                "Кол-во выполненных разделов": g.calculateCompleteCount(),
                 "Балл за группу": g.score
             })
     return pd.DataFrame(rows)

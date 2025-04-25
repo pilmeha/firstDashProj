@@ -5,7 +5,9 @@ def generate_layout(df):
     fig = px.bar(df, x="Участник", y="% выполнения", color="Группа", barmode="group",
                  title="Выполнение плана по участникам")
     
+    
     return html.Div([
         html.H2("Дашборд выполнения плана продаж по группам"),
-        dcc.Graph(figure=fig)
+        dcc.Graph(figure=fig),
+        dcc.Graph(figure=fig2)
     ])

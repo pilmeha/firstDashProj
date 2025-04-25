@@ -42,6 +42,7 @@ def parseGroups(sheet):
                 for i in range(4):
                     if sheet[lnc + str(ci + i)].value == '% выполнения (общий)':
                         g[gi].addMinProc(sheet[pnc + str(ci + i)].value)
+                        
                     if sheet[lnc + str(ci + i)].value == 'Количество выполненных разделов':
                         g[gi].addMinMemb(sheet[pnc + str(ci + i)].value)
                 if sheet[mnc + str(ci + 3)].value is not None:

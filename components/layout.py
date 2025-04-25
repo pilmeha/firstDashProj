@@ -9,5 +9,4 @@ def generate_layout(df):
     return html.Div([
         html.H2("Дашборд выполнения плана продаж по группам"),
         dcc.Graph(figure=fig),
-        dcc.Graph(figure=fig2)
     ])

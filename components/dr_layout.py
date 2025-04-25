@@ -18,6 +18,11 @@ def generate_dynamic_rules_layout(df):
                 options=[{'label': str(n), 'value': str(n)} for n in range(101)],
                 value='100' # The default value to display
            ),
+           dcc.Dropdown(
+                id='cros1',
+                options=[{'label': str(n/10), 'value': str(n/10)} for n in range(1,21)],
+                value='1.0' # The default value to display
+           ),
            html.Div(id='output-container1'),
 
            dcc.Dropdown(
@@ -29,6 +34,11 @@ def generate_dynamic_rules_layout(df):
                 id='proc2',
                 options=[{'label': str(n), 'value': str(n)} for n in range(101)],
                 value='100' # The default value to display
+           ),
+           dcc.Dropdown(
+                id='cros2',
+                options=[{'label': str(n/10), 'value': str(n/10)} for n in range(1,21)],
+                value='1.0' # The default value to display
            ),
            html.Div(id='output-container2'),
 
@@ -42,6 +52,13 @@ def generate_dynamic_rules_layout(df):
                 options=[{'label': str(n), 'value': str(n)} for n in range(101)],
                 value='100' # The default value to display
            ),
+           dcc.Dropdown(
+                id='cros3',
+                options=[{'label': str(n/10), 'value': str(n/10)} for n in range(1,21)],
+                value='1.0' # The default value to display
+           ),
            html.Div(id='output-container3'),
+           html.Div('====================================================='),
+           html.Div(id='crossRibate'),
         ])
 

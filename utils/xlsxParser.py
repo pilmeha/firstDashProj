@@ -28,6 +28,28 @@ class Member:
         self.plan = plan
         self.current = current
         self.proc = current / plan if plan else 0
+        self.region = None
+
+    def addRegion(self, region):
+        self.region = region
+
+company_to_region = {
+    "Postgres Pro, Tantor SE 1C": "Москва",
+    "Kaspersky (только B2B)": "Москва",
+    "Р7-Офис": "Новосибирск",
+    "Astra Linux": "Казань",
+    "ALT Linux (Базальт СПО)": "Москва",
+    "РедСофт": "Москва",
+    "РОСА, Атлант, ОСнова": "Москва",
+    "SHUTLE TSplus (ШАТЛ), Ассистент, Getscreen, AnyDesk, RuDesktop, RMS, Radmin": "Москва",
+    "TrueConf, Вкурсе, Телемост, Mind, VideoMost, Webinar, VirtualRoom (Mirapolis)": "Москва",
+    "Киберпротект (Акронис-Инфозащита)": "Москва",
+    "Dr.Web": "Москва",
+    "Tegu": "Москва",
+    "МойОфис": "Москва",
+    "Остальной софт": "-"
+    # можно продолжать по необходимости
+}
 
 def parseGroups(sheet):
     gnc, snc, mnc, lnc, pnc, dnc = 'A', 'B', 'C', 'D', 'E', 'F'
@@ -56,7 +78,10 @@ def parseGroups(sheet):
             else:
                 planM = sheet[dnc + str(ci)].value or 0
                 currM = sheet[dnc + str(ci + 1)].value or 0
-                g[gi].members.append(Member(sv, planM, currM))
+                member = Member(sv, planM, currM)
+                region = company_to_region.get(sv, "Неизвестный регион")
+                member.addRegion(region)
+                g[gi].members.append(member)
                 if sheet[lnc + str(ci + 3)].value == 'Балл за выполнение':
                     g[gi].addMinProc(1)
                     g[gi].addMinMemb(1)
@@ -70,6 +95,7 @@ def parseGroups(sheet):
     return g
 
 def load_groups_from_excel(filepath: str, sheet_name="SALES Q1 2025"):
+
     wb = load_workbook(filepath)
     sheet = wb[sheet_name]
     return parseGroups(sheet)

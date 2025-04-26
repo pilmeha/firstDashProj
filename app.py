@@ -31,7 +31,8 @@ def groups_to_dataframe(groups):
                 "Требуемое кол-во выполненных разделов": g.minMemb,
                 "% выполнения (общий)": g.calculateCurrProc(),
                 "Кол-во выполненных разделов": g.calculateCompleteCount(),
-                "Балл за группу": g.score
+                "Балл за группу": g.score,
+                "Регион": m.region,
             })
     return pd.DataFrame(rows)
 
@@ -48,12 +49,21 @@ app.layout = html.Div([
         generate_dynamic_rules_layout(group_objs),
         generate_scores_layout(group_objs)
     ])
-])
+    ],
+    style={
+        # 'width': '100%', 
+        # 'height': '100vh', 
+        # 'padding': '20px',
+        'margin-left': '80px',
+        'margin-right': '80px',
+})
 
-@app.callback(Output('graph_layout', 'style'),
-              Output('rules_layout', 'style'),
-              Output('scores_layout', 'style'),
-              Input('tabs', 'value'))
+@app.callback(
+    Output('graph_layout', 'style'),
+    Output('rules_layout', 'style'),
+    Output('scores_layout', 'style'),
+    Input('tabs', 'value')
+)
 def render_content(tab):
     if tab == 'tab-1':
         return ({'display': 'block'},{'display': 'none'},{'display': 'none'})

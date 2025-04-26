@@ -144,7 +144,7 @@ def generate_single_member_plan_fact(df, member_name):
         margin=dict(t=50, b=100),
         xaxis_title="Тип значения",
         yaxis_title="Сумма (₽)",
-        # showlegend=False
+        showlegend=False
     )
 
     return dcc.Graph(figure=fig)

@@ -36,18 +36,21 @@ class Member:
 company_to_region = {
     "Postgres Pro, Tantor SE 1C": "Москва",
     "Kaspersky (только B2B)": "Москва",
-    "Р7-Офис": "Новосибирск",
-    "Astra Linux": "Казань",
+    "Р7-Офис": "Нижний Новгород",
+    "Astra Linux": "Москва",
     "ALT Linux (Базальт СПО)": "Москва",
+    "АСКОН": "Санкт-Петербург",
+    "UserGate": "Москва",
+    "Ideco": "Екатеринбурге",
+    "Смарт-Софт, SkyDNS": "Коломна, Екатеринбург",
     "РедСофт": "Москва",
     "РОСА, Атлант, ОСнова": "Москва",
-    "SHUTLE TSplus (ШАТЛ), Ассистент, Getscreen, AnyDesk, RuDesktop, RMS, Radmin": "Москва",
+    "SHUTLE TSplus (ШАТЛ), Ассистент, Getscreen, AnyDesk, RuDesktop, RMS, Radmin": "Самара",
     "TrueConf, Вкурсе, Телемост, Mind, VideoMost, Webinar, VirtualRoom (Mirapolis)": "Москва",
     "Киберпротект (Акронис-Инфозащита)": "Москва",
     "Dr.Web": "Москва",
     "Tegu": "Москва",
     "МойОфис": "Москва",
-    "Остальной софт": "-"
     # можно продолжать по необходимости
 }
 

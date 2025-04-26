@@ -51,12 +51,10 @@ app.layout = html.Div([
     ])
     ],
     style={
-        # 'width': '100%', 
-        # 'height': '100vh', 
-        # 'padding': '20px',
         'margin-left': '80px',
         'margin-right': '80px',
-})
+}
+)
 
 @app.callback(
     Output('graph_layout', 'style'),

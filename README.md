@@ -11,7 +11,7 @@
 * styles.css - файл для стилизации html странички
 * requirements.txt - файл с названиями библиотек, которые надо скачать перед запуском
 
-# скирны работы приложения
+# Скирны работы приложения
 
 ![image](https://github.com/user-attachments/assets/89c0f15d-746a-4e57-ae2e-dc63510cd4b4)
 ![image](https://github.com/user-attachments/assets/79a49a72-d3d2-49e8-90ec-1a8100ba9372)
@@ -22,7 +22,7 @@
 ![image](https://github.com/user-attachments/assets/8eeea51e-5af6-4aca-a0a9-9b6032850ec9)
 ![image](https://github.com/user-attachments/assets/91bb83e0-a0a7-49fc-98a2-e34b630c22bc)
 
-# как использовать приложеиние?
+# Как использовать приложеиние?
 
 1) скачать проект
 2) установить зависимости (можно использовать виртуальное окружение и установить зависимости туда)
